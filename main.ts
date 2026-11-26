@@ -12,7 +12,7 @@
 // order, never stamps a time into anything, and the dossier is a pure
 // function of the copied files.
 
-import { cpSync, existsSync, mkdirSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { buildDossier } from './vendor/makefun-game.ts';
@@ -40,8 +40,15 @@ function copyTree(source, target) {
 
 // Start from a clean output directory so a stale file from an earlier build
 // can never leak into this one, and the two grader runs agree byte for byte.
-rmSync(outDir, { recursive: true, force: true });
+// Only the directory's contents are removed, never the directory itself:
+// the grader mounts /output as a volume, and removing a mount point fails
+// with EBUSY, which is what rejected the first submission (run_completes
+// exit code 1). Emptying the children works on a mount point and on a
+// plain directory alike.
 mkdirSync(outDir, { recursive: true });
+for (const entry of readdirSync(outDir)) {
+  rmSync(join(outDir, entry), { recursive: true, force: true });
+}
 
 const gameDir = join(repoRoot, 'game');
 if (!existsSync(join(gameDir, 'index.html'))) {
