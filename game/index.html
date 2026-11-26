@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kestrel Run — a courier flight game over the Marrow Isles</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<canvas id="game" aria-label="Kestrel Run flight game"></canvas>
+
+<div id="corner">
+  <button id="pause" type="button" title="Pause (P)">⏸ Pause</button>
+  <button id="restart" type="button" title="Restart sortie (R)">↻ Restart</button>
+  <button id="mute" type="button" title="Mute (M)">🔊 Sound on</button>
+</div>
+
+<div id="menu" class="overlay">
+  <div class="menu-card">
+    <p class="kicker">MAKE.FUN · BEST FLIGHT GAME</p>
+    <h1 class="title">Kestrel Run</h1>
+    <p class="subtitle">A courier pilot over the Marrow Isles</p>
+    <p class="intro">
+      You fly the <b>Kestrel</b>, a little high-wing courier aeroplane, across an
+      archipelago of islands, sea channels and harbour villages. Pick a sortie:
+      thread the beacon rings, drop parcels on the villages, or land on every
+      island strip. Fuel and the airframe are both finite.
+    </p>
+    <div class="missions"></div>
+    <p class="howto"></p>
+    <p class="foot">An original game: its art, sounds, names and code were made for this entry. No network requests — everything runs from these files.</p>
+  </div>
+</div>
+
+<div id="over" class="overlay hidden">
+  <div class="menu-card narrow">
+    <h2 class="over-title"></h2>
+    <div class="over-lines"></div>
+    <div class="over-buttons">
+      <button class="again" type="button">Fly again</button>
+      <button class="tomenu" type="button">Choose a sortie</button>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="src/main.js"></script>
+</body>
+</html>
